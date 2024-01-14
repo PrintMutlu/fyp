@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyp_new/provider/location_provider.dart';
 import 'package:fyp_new/view/home_page.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import 'controller/requirement_state_controller.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp( ChangeNotifierProvider(
+      create: (context) => LocationProvider(),
+      child: MainApp(),
+  ),
+  );
 }
 
 class MainApp extends StatelessWidget {

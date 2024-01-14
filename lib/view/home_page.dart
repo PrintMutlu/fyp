@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:fyp_new/view/details_page.dart';
 
 import 'package:get/get.dart';
 import 'package:open_settings/open_settings.dart';
@@ -344,11 +343,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Beacons',
+            label: 'Tarayıcı',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bluetooth_audio),
-            label: 'Scan',
+            label: 'Konum',
           ),
         ],
       ),
