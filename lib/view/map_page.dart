@@ -19,7 +19,7 @@ class _MapPageState extends State<MapPage> {
   late double x;
   late double y;
   Offset location = const Offset(0, 0);
-  TabScanning bec = TabScanning();
+
 
   /*@override
   void initState() {
@@ -73,8 +73,8 @@ class _MapPageState extends State<MapPage> {
               child: Stack(
                 children: [
                   Positioned(
-                    left: 150,
-                    top: 150,
+                    left: 0,
+                    top: 0,
                     child: CustomPaint(
                       painter: DotPainter(Offset(Provider
                           .of<LocationProvider>(context)

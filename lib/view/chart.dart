@@ -1,17 +1,23 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class ChartPage extends StatelessWidget {
+class ChartPage extends StatefulWidget {
   final List<int> rssiValues;
 
-  const ChartPage({Key? key, required this.rssiValues}) : super(key: key);
+  ChartPage({Key? key, required this.rssiValues}) : super(key: key);
+
+  @override
+  State<ChartPage> createState() => _ChartPageState();
+}
+
+class _ChartPageState extends State<ChartPage> {
+
 
   @override
   Widget build(BuildContext context) {
-    List<FlSpot> spots = rssiValues.asMap().entries.map((entry) {
+    List<FlSpot> spots = widget.rssiValues.asMap().entries.map((entry) {
       return FlSpot(entry.key.toDouble(), entry.value.toDouble());
     }).toList();
-
     return Center(
       child: Container(
         width: 350,
