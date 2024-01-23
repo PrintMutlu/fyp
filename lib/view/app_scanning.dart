@@ -176,16 +176,16 @@ class _TabScanningState extends State<TabScanning> {
               rssi = _beacons[i].rssi;
 
               if (_beacons[i].minor == 3) {
-                rssi3 = _applyMedianFilter(rssiValues31);
-                rssi3 = rssi;
+                //rssi3 = _applyMedianFilter(rssiValues31);
+                //rssi3 = rssi;
 
-                //dist[0] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+                //dist[0] = pow(10, ((txPower - rssi3) / (10 * 1))) as double;
 
                 dist[0] = _beacons[i].accuracy;
 
                 rssiValues31.add(rssi);
 
-                if (rssiValues31.length > 7) {
+                if (rssiValues31.length > 5) {
                      rssiValues31.removeAt(0);
                    }
 
@@ -195,15 +195,15 @@ class _TabScanningState extends State<TabScanning> {
                 }
 
               } else if (_beacons[i].minor == 4) {
-                rssi4 = _applyMedianFilter(rssiValues41);
-                rssi4 = rssi;
+                //rssi4 = _applyMedianFilter(rssiValues41);
+                //rssi4 = rssi;
 
-                //dist[1] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+                //dist[1] = pow(10, ((txPower - rssi4) / (10 * 2))) as double;
 
                 dist[1] = _beacons[i].accuracy;
 
                 rssiValues41.add( rssi);
-                   if (rssiValues41.length > 7) {
+                   if (rssiValues41.length > 5) {
                      rssiValues41.removeAt(0);
                    }
 
@@ -212,15 +212,15 @@ class _TabScanningState extends State<TabScanning> {
                   rssiValues4.removeAt(0);
                 }
               } else if (_beacons[i].minor == 8) {
-                rssi8 = _applyMedianFilter(rssiValues81);
-                rssi8 = rssi;
+                //rssi8 = _applyMedianFilter(rssiValues81);
+                //rssi8 = rssi;
 
-                //dist[2] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+                //dist[2] = pow(10, ((txPower - rssi8) / (10 * 2))) as double;
 
                 dist[2] = _beacons[i].accuracy;
 
                 rssiValues81.add( rssi);
-                   if (rssiValues81.length > 7) {
+                   if (rssiValues81.length > 5) {
                      rssiValues81.removeAt(0);
                    }
 
@@ -236,27 +236,120 @@ class _TabScanningState extends State<TabScanning> {
             d3 = dist[2];
 
 
-
-            if (0.0 < d1 && d1 < 0.55 && 0.7 < d2 && 0.7 < d3) {
+            if (0.0 <= d1 && d1 < 0.5 && 0.55 < d2 && 0.55 < d3) {
 
               widget.x = 150;
-              widget.y = 75;
+              widget.y = 100;
               x = 150;
-              y = 75;
+              y = 100;
 
-            } else if (0.7 < d1 && 0.0 < d2 && d2 < 0.55 && 0.7 < d3) {
+              if (0.0 <= d1 && d1 < 0.35) {
+                widget.x = 150;
+                widget.y = 60;
+                x = 150;
+                y = 60;
 
-              widget.x = 75;
-              widget.y = 225;
-              x = 75;
-              y = 225;
+                if (0.0 <= d1 && d1 < 0.25) {
+                  widget.x = 150;
+                  widget.y = 42;
+                  x = 150;
+                  y = 42;
 
-            } else if (0.7 < d1 && 0.7 < d2 && 0.0 < d3 && d3 < 0.55) {
+                  if (0.0 <= d1 && d1 < 0.15) {
+                    widget.x = 150;
+                    widget.y = 32;
+                    x = 150;
+                    y = 32;
 
-              widget.x = 225;
-              widget.y = 225;
-              x = 225;
-              y = 225;
+                    if (0.0 <= d1 && d1 < 0.06) {
+                      widget.x = 150;
+                      widget.y = 25;
+                      x = 150;
+                      y = 25;
+                    }
+                  }
+                }
+              }
+
+            } else if (0.55 < d1 && 0.0 <= d2 && d2 < 0.5 && 0.55 < d3) {
+
+              widget.x = 90;
+              widget.y = 200;
+              x = 90;
+              y = 200;
+
+              if (0.0 <= d2 && d2 < 0.35) {
+
+                widget.x = 52;
+                widget.y = 230;
+                x = 52;
+                y = 230;
+
+                if (0.0 <= d2 && d2 < 0.25) {
+
+                  widget.x = 43;
+                  widget.y = 248;
+                  x = 43;
+                  y = 248;
+
+                  if (0.0 <= d2 && d2 < 0.15) {
+
+                    widget.x = 35;
+                    widget.y = 263;
+                    x = 35;
+                    y = 263;
+
+                    if (0.0 <= d2 && d2 < 0.06) {
+
+                      widget.x = 20;
+                      widget.y = 278;
+                      x = 20;
+                      y = 278;
+
+                    }
+                  }
+                }
+              }
+
+            } else if (0.55 < d1 && 0.55 < d2 && 0.0 <= d3 && d3 < 0.5) {
+
+              widget.x = 200;
+              widget.y = 200;
+              x = 200;
+              y = 200;
+
+              if (0.0 <= d3 && d3 < 0.35) {
+
+                widget.x = 235;
+                widget.y = 235;
+                x = 235;
+                y = 235;
+
+                if (0.0 <= d3 && d3 < 0.25) {
+
+                  widget.x = 248;
+                  widget.y = 248;
+                  x = 248;
+                  y = 248;
+
+                  if (0.0 <= d3 && d3 < 0.15) {
+
+                    widget.x = 265;
+                    widget.y = 265;
+                    x = 265;
+                    y = 265;
+
+                    if (0.0 <= d3 && d3 < 0.06) {
+
+                      widget.x = 270;
+                      widget.y = 272;
+                      x = 270;
+                      y = 270;
+
+                    }
+                  }
+                }
+              }
 
             } else {
 
@@ -266,37 +359,6 @@ class _TabScanningState extends State<TabScanning> {
               y = 150;
 
             }
-
-
-            /*
-            if (-1 > rssi3 && rssi3 > -56 && -54 > rssi4 && rssi4 > -100 && -55 > rssi8 && rssi8 > -100) {
-              widget.x = 150;
-              widget.y = 75;
-              x = 150;
-              y = 75;
-
-            } else if (-55 > rssi3 && rssi3 > -100 && -1 > rssi4 && rssi4 > -56 && -55 > rssi8 && rssi8 > -100) {
-
-              widget.x = 75;
-              widget.y = 225;
-              x = 75;
-              y = 225;
-
-            } else if (-55 > rssi3 && rssi3 > -100 && -55 > rssi4 && rssi4 > -100 && -1 > rssi8 && rssi8 > -56) {
-
-              widget.x = 225;
-              widget.y = 225;
-              x = 225;
-              y = 225;
-
-            } else {
-
-              widget.x = 150;
-              widget.y = 150;
-              x = 150;
-              y = 150;
-
-            }*/
 
 
             //Position? position = trilateration.calculatePosition(d1,d2,d3);
@@ -326,14 +388,14 @@ class _TabScanningState extends State<TabScanning> {
 
   int _applyMedianFilter(List<int> values) {
     values.sort();
+    int length = values.length;
+
     if (values.isEmpty) {
       return 0;
-    }
-    int length = values.length;
-    if (length % 2 == 0) {
-      return (values[length ~/ 2 - 1] + values[length ~/ 2]) ~/ 2;
+    } else if (length == 5) {
+      return values[2];
     } else {
-      return values[length ~/ 2];
+      return values[length-1];
     }
   }
 

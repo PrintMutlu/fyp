@@ -68,6 +68,66 @@ class _MapPageState extends State<MapPage> {
               ),
               child: Stack(
                 children: [
+                  const Positioned(
+                    left: 130,
+                    top: 0,
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.bluetooth_audio,
+                          size: 22,
+                          color: Colors.blue,
+                        ),
+                        Text(
+                          'Beacon 1',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Positioned(
+                    left: 0,
+                    top: 260,
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.bluetooth_audio,
+                          size: 22,
+                          color: Colors.blue,
+                        ),
+                        Text(
+                          'Beacon 2',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Positioned(
+                    left: 251,
+                    top: 260,
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.bluetooth_audio,
+                          size: 22,
+                          color: Colors.blue,
+                        ),
+                        Text(
+                          'Beacon 3',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   Positioned(
                     left: Provider.of<LocationProvider>(context).x - 15,
                     top: Provider.of<LocationProvider>(context).y - 29,
@@ -81,38 +141,12 @@ class _MapPageState extends State<MapPage> {
                         Text(
                           'Siz',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.red,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  const Positioned(
-                    left: 140,
-                    top: 0,
-                    child: Icon(
-                      Icons.bluetooth_audio,
-                      size: 22,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  const Positioned(
-                    left: 0,
-                    top: 272,
-                    child: Icon(
-                      Icons.bluetooth_audio,
-                      size: 22,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  const Positioned(
-                    left: 272,
-                    top: 272,
-                    child: Icon(
-                      Icons.bluetooth_audio,
-                      size: 22,
-                      color: Colors.blue,
                     ),
                   ),
                 ],
