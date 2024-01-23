@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Beacon'),
+        title: const Text('İç Mekan Konum'),
         centerTitle: false,
         actions: <Widget>[
           Obx(() {
@@ -326,30 +326,37 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           MapPage(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+      bottomNavigationBar: Container(
+        height: 85,
+        child: BottomNavigationBar(
+          selectedFontSize: 16.0, // Adjust this value to increase the font size
+          unselectedFontSize: 14.0,
+          selectedIconTheme: IconThemeData(size: 25),
+          unselectedIconTheme: IconThemeData(size: 22),
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
 
-          if (currentIndex == 0) {
-            controller.startScanning();
-          } else {
-            controller.pauseScanning();
-            controller.startBroadcasting();
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Tarayıcı',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bluetooth_audio),
-            label: 'Konum',
-          ),
-        ],
+            if (currentIndex == 0) {
+              controller.startScanning();
+            } else {
+              controller.pauseScanning();
+              controller.startBroadcasting();
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bluetooth_audio),
+              label: 'Tarayıcı',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map_outlined),
+              label: 'Konum',
+            ),
+          ],
+        ),
       ),
     );
   }
