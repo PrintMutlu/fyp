@@ -248,7 +248,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             if (!controller.locationServiceEnabled)
               return IconButton(
                 tooltip: 'Not Determined',
-                icon: Icon(Icons.portable_wifi_off),
+                icon: const Icon(Icons.portable_wifi_off),
                 color: Colors.grey,
                 onPressed: () {},
               );
@@ -256,7 +256,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             if (!controller.authorizationStatusOk)
               return IconButton(
                 tooltip: 'Not Authorized',
-                icon: Icon(Icons.portable_wifi_off),
+                icon: const Icon(Icons.portable_wifi_off),
                 color: Colors.red,
                 onPressed: () async {
                   await flutterBeacon.requestAuthorization;
@@ -265,7 +265,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
             return IconButton(
               tooltip: 'Authorized',
-              icon: Icon(Icons.wifi_tethering),
+              icon: const Icon(Icons.wifi_tethering),
               color: Colors.blue,
               onPressed: () async {
                 await flutterBeacon.requestAuthorization;
@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             if (state == BluetoothState.stateOn) {
               return IconButton(
                 tooltip: 'Bluetooth ON',
-                icon: Icon(Icons.bluetooth_connected),
+                icon: const Icon(Icons.bluetooth_connected),
                 onPressed: () {},
                 color: Colors.lightBlueAccent,
               );
@@ -304,14 +304,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             if (state == BluetoothState.stateOff) {
               return IconButton(
                 tooltip: 'Bluetooth OFF',
-                icon: Icon(Icons.bluetooth),
+                icon: const Icon(Icons.bluetooth),
                 onPressed: handleOpenBluetooth,
                 color: Colors.red,
               );
             }
 
             return IconButton(
-              icon: Icon(Icons.bluetooth_disabled),
+              icon: const Icon(Icons.bluetooth_disabled),
               tooltip: 'Bluetooth State Unknown',
               onPressed: () {},
               color: Colors.grey,
@@ -329,10 +329,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       bottomNavigationBar: Container(
         height: 85,
         child: BottomNavigationBar(
-          selectedFontSize: 16.0, // Adjust this value to increase the font size
+          selectedFontSize: 16.0,
           unselectedFontSize: 14.0,
-          selectedIconTheme: IconThemeData(size: 25),
-          unselectedIconTheme: IconThemeData(size: 22),
+          selectedIconTheme: const IconThemeData(size: 25),
+          unselectedIconTheme: const IconThemeData(size: 22),
           currentIndex: currentIndex,
           onTap: (index) {
             setState(() {
@@ -346,7 +346,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               controller.startBroadcasting();
             }
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.bluetooth_audio),
               label: 'Tarayıcı',
@@ -369,14 +369,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Location Services Off'),
-            content: Text(
+            title: const Text('Location Services Off'),
+            content: const Text(
               'Please enable Location Services on Settings > Privacy > Location Services.',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -397,12 +397,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Bluetooth is Off'),
-            content: Text('Please enable Bluetooth on Settings > Bluetooth.'),
+            title: const Text('Bluetooth is Off'),
+            content: const Text('Please enable Bluetooth on Settings > Bluetooth.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );

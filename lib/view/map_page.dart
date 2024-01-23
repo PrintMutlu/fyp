@@ -13,7 +13,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-
   late double x;
   late double y;
   Offset location = const Offset(0, 0);
@@ -46,14 +45,6 @@ class _MapPageState extends State<MapPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /*Text('${Provider
-                .of<LocationProvider>(context)
-                .x}'),
-            const SizedBox(height: 10,),
-            Text('${Provider
-                .of<LocationProvider>(context)
-                .y}'),
-            const SizedBox(height: 20,),*/
             const Text("Oda", style: TextStyle(fontSize: 20),),
             const SizedBox(height: 20,),
             Container(

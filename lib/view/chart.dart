@@ -18,7 +18,17 @@ class _ChartPageState extends State<ChartPage> {
     List<FlSpot> spots = widget.rssiValues.asMap().entries.map((entry) {
       return FlSpot(entry.key.toDouble(), entry.value.toDouble());
     }).toList();
-    return Center(
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('RSSI Değerleri'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+    body: Center(
       child: Container(
         width: 350,
         height: 350,
@@ -71,6 +81,7 @@ class _ChartPageState extends State<ChartPage> {
           ),
         ),
       ),
+    ),
     );
   }
 }
