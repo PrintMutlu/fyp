@@ -14,12 +14,9 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
 
-  bool isWidgetCreated =false;
-
   late double x;
   late double y;
   Offset location = const Offset(0, 0);
-
 
   /*@override
   void initState() {
@@ -42,8 +39,6 @@ class _MapPageState extends State<MapPage> {
 
   }*/
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +46,15 @@ class _MapPageState extends State<MapPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('${Provider
+            /*Text('${Provider
                 .of<LocationProvider>(context)
                 .x}'),
             const SizedBox(height: 10,),
             Text('${Provider
                 .of<LocationProvider>(context)
                 .y}'),
+            const SizedBox(height: 20,),*/
+            const Text("Oda", style: TextStyle(fontSize: 20),),
             const SizedBox(height: 20,),
             Container(
               width: 300,
@@ -69,44 +66,52 @@ class _MapPageState extends State<MapPage> {
                   width: 2.0,
                 ),
               ),
-
               child: Stack(
                 children: [
                   Positioned(
-                    left: 0,
-                    top: 0,
-                    child: CustomPaint(
-                      painter: DotPainter(Offset(Provider
-                          .of<LocationProvider>(context)
-                          .x, Provider
-                          .of<LocationProvider>(context)
-                          .y)),
+                    left: Provider.of<LocationProvider>(context).x - 15,
+                    top: Provider.of<LocationProvider>(context).y - 29,
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 30,
+                          color: Colors.red,
+                        ),
+                        Text(
+                          'Siz',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const Positioned(
-                    left: 137,
+                    left: 140,
                     top: 0,
                     child: Icon(
                       Icons.bluetooth_audio,
-                      size: 26,
+                      size: 22,
                       color: Colors.blue,
                     ),
                   ),
                   const Positioned(
                     left: 0,
-                    top: 274,
+                    top: 272,
                     child: Icon(
                       Icons.bluetooth_audio,
-                      size: 26,
+                      size: 22,
                       color: Colors.blue,
                     ),
                   ),
                   const Positioned(
-                    left: 274,
-                    top: 274,
+                    left: 272,
+                    top: 272,
                     child: Icon(
                       Icons.bluetooth_audio,
-                      size: 26,
+                      size: 22,
                       color: Colors.blue,
                     ),
                   ),
