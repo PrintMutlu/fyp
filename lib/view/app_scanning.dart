@@ -29,22 +29,9 @@ class _TabScanningState extends State<TabScanning> {
   KalmanFilter kalmanFilter = KalmanFilter();
   double x = 0, y = 0;
 
-  List<int> rssiValues3 = [];
-  List<int> rssiValues4 = [];
-  List<int> rssiValues8 = [];
+  List<int> rssiValues3 = []; List<int> rssiValues4 = []; List<int> rssiValues8 = [];
 
-  List<int> rssiValues31 = [];
-  List<int> rssiValues41 = [];
-  List<int> rssiValues81 = [];
-
-/*
-  List<Position> beaconsPosition = [
-    Position(0, 150),
-    Position(-150, -150),
-    Position(150, -150),
-
-  ];
-  */
+  List<int> rssiValues31 = []; List<int> rssiValues41 = []; List<int> rssiValues81 = [];
 
   Trilateration trilateration = Trilateration(beaconsPosition: [
     Position(0, 150),
@@ -52,9 +39,7 @@ class _TabScanningState extends State<TabScanning> {
     Position(150, -150),
   ]);
 
-  double x1 = 0.58, y1 = 2.05;
-  double x2 = -2.2, y2 = -2.3;
-  double x3 = 1.8, y3 = -2.1;
+  double x1 = 0.58, y1 = 2.05; double x2 = -2.2, y2 = -2.3; double x3 = 1.8, y3 = -2.1;
 
   double d1 = 0, d2 = 0, d3 = 0;
   int rssi = 0;
@@ -64,9 +49,7 @@ class _TabScanningState extends State<TabScanning> {
 
   bool isTabScanningWidgetCreated = false;
 
-  int rssi3 = 0;
-  int rssi4 = 0;
-  int rssi8 = 0;
+  int rssi3 = 0; int rssi4 = 0; int rssi8 = 0;
 
 
   List<Beacon> defaultBeacons = [
@@ -153,14 +136,10 @@ class _TabScanningState extends State<TabScanning> {
         if (mounted) {
           setState(() {
             _regionBeacons[result.region] = result.beacons;
-
-            // Güncel bilgilerle _beacons listesini güncelle
-
             _beacons.forEach((existingBeacon) {
               result.beacons.forEach((newBeacon) {
                 if (existingBeacon.major == newBeacon.major &&
                     existingBeacon.minor == newBeacon.minor) {
-                  // Yeni bir Beacon nesnesi oluştur ve eski nesnenin yerine ekle
                   _beacons[_beacons.indexOf(existingBeacon)] = Beacon(
                     proximityUUID: existingBeacon.proximityUUID,
                     major: existingBeacon.major,
@@ -200,8 +179,9 @@ class _TabScanningState extends State<TabScanning> {
                 rssi3 = _applyMedianFilter(rssiValues31);
                 rssi3 = rssi;
 
-                dist[0] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
-                //dist[0] = _beacons[i].accuracy;
+                //dist[0] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+
+                dist[0] = _beacons[i].accuracy;
 
                 rssiValues31.add(rssi);
 
@@ -218,8 +198,9 @@ class _TabScanningState extends State<TabScanning> {
                 rssi4 = _applyMedianFilter(rssiValues41);
                 rssi4 = rssi;
 
-                dist[1] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
-               // dist[1] = _beacons[i].accuracy;
+                //dist[1] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+
+                dist[1] = _beacons[i].accuracy;
 
                 rssiValues41.add( rssi);
                    if (rssiValues41.length > 7) {
@@ -234,8 +215,9 @@ class _TabScanningState extends State<TabScanning> {
                 rssi8 = _applyMedianFilter(rssiValues81);
                 rssi8 = rssi;
 
-                dist[2] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
-                //dist[2] = _beacons[i].accuracy;
+                //dist[2] = pow(10, ((txPower - rssi) / (10 * 2))) as double;
+
+                dist[2] = _beacons[i].accuracy;
 
                 rssiValues81.add( rssi);
                    if (rssiValues81.length > 7) {
@@ -255,74 +237,28 @@ class _TabScanningState extends State<TabScanning> {
 
 
 
-            if (-1 > rssi3 && rssi3 > -70 && -55 > rssi4 && rssi4 > -110 && -55 > rssi8 && rssi8 > -110) {
+            if (0.0 < d1 && d1 < 0.55 && 0.7 < d2 && 0.7 < d3) {
 
               widget.x = 150;
               widget.y = 75;
               x = 150;
               y = 75;
 
-              if (-1 > rssi3 && rssi3 > -65 && -55 > rssi4 && rssi4 > -95 && -67 > rssi8 && rssi8 > -110) {
-                // print("1");
-
-                widget.x = 75;
-                widget.y = 75;
-                x = 75;
-                y = 75;
-
-              } else if (-1 > rssi3 && rssi3 < -70 && -67 > rssi4 && rssi4 > -110 && -55 > rssi8 && rssi8 > -95) {
-                // print("2");
-
-                widget.x = 225;
-                widget.y = 75;
-                x = 225;
-                y = 75;
-
-              } else if (-1 > rssi3 && rssi3 > -60 && -60 > rssi4 && rssi4 > -70 && -60 > rssi8 && rssi8 > -70) {
-
-                widget.x = 150;
-                widget.y = 75;
-                x = 150;
-                y = 75;
-
-              }
-
-
-            } else if (-50 > rssi3 && rssi3 > -95 && -1 > rssi4 && rssi4 > -56 && -1 > rssi8 && rssi8 > -56) {
-
-              widget.x = 150;
-              widget.y = 225;
-              x = 150;
-              y = 225;
-
-              if (-50 > rssi3 && rssi3 > -95 && -1 <= rssi4 && rssi4 > -56 && -56 > rssi8 && rssi8 > -95) {
-              // print("2");
+            } else if (0.7 < d1 && 0.0 < d2 && d2 < 0.55 && 0.7 < d3) {
 
               widget.x = 75;
               widget.y = 225;
               x = 75;
               y = 225;
 
-            } else if (-50 > rssi3 && rssi3 > -95 && -56 > rssi4 && rssi4 > -95 && -1 > rssi8 && rssi8 > -56) {
-                // print("2");
+            } else if (0.7 < d1 && 0.7 < d2 && 0.0 < d3 && d3 < 0.55) {
 
-                widget.x = 225;
-                widget.y = 225;
-                x = 225;
-                y = 225;
-
-              }
-
-            } else if (-57 > rssi3 && rssi3 > -65 && -57 > rssi4 && rssi4 > -65 && -57 > rssi8 && rssi8 > -65) {
-              // print("2");
-
-              widget.x = 170;
-              widget.y = 150;
-              x = 170;
-              y = 150;
+              widget.x = 225;
+              widget.y = 225;
+              x = 225;
+              y = 225;
 
             } else {
-              // print("2");
 
               widget.x = 150;
               widget.y = 150;
@@ -332,349 +268,43 @@ class _TabScanningState extends State<TabScanning> {
             }
 
 
-
-
-
-
-
             /*
+            if (-1 > rssi3 && rssi3 > -56 && -54 > rssi4 && rssi4 > -100 && -55 > rssi8 && rssi8 > -100) {
+              widget.x = 150;
+              widget.y = 75;
+              x = 150;
+              y = 75;
 
-            if (-1 <= rssi3 && rssi3 <= -60 && -75 <= rssi4 && rssi4 <= -80 && -85 < rssi8 && rssi8 < -100) {
-              // print("1");
+            } else if (-55 > rssi3 && rssi3 > -100 && -1 > rssi4 && rssi4 > -56 && -55 > rssi8 && rssi8 > -100) {
 
-              widget.x = 35;
-              widget.y = 35;
-              x = 35;
-              y = 35;
+              widget.x = 75;
+              widget.y = 225;
+              x = 75;
+              y = 225;
 
-            } else if (-1 < rssi3 && rssi3 < -48 && -80 <= rssi4 && rssi4 <= -86 && -80 < rssi8 && rssi8 < -86) {
-              // print("2");
+            } else if (-55 > rssi3 && rssi3 > -100 && -55 > rssi4 && rssi4 > -100 && -1 > rssi8 && rssi8 > -56) {
 
-              widget.x = 105;
-              widget.y = 35;
-              x = 105;
-              y = 35;
+              widget.x = 225;
+              widget.y = 225;
+              x = 225;
+              y = 225;
 
-            } else if (-47 <= rssi3 && rssi3 < -57 && -85 <= rssi4 && rssi4 <= -100 && -75 < rssi8 && rssi8 < -80) {
-              //  print("3 ters");
+            } else {
 
-              widget.x = 190;
-              widget.y = 35;
-              x = 190;
-              y = 35;
+              widget.x = 150;
+              widget.y = 150;
+              x = 150;
+              y = 150;
 
-            } else if (-52 < rssi3 && rssi3 < -63 && -62 <= rssi4 && rssi4 <= -72 && -79 < rssi8 && rssi8 < -88) {
-              //print("5");
-
-              widget.x = 35;
-              widget.y = 105;
-              x = 35;
-              y = 105;
-
-            } else if (-48 < rssi3 && rssi3 < -63 && -68 <= rssi4 && rssi4 <= -75 && -68 < rssi8 && rssi8 < -75) {
-              // print("6");
-
-              widget.x = 105;
-              widget.y = 105;
-              x = 105;
-              y = 105;
-
-            } else if (-48 < rssi3 && rssi3 < -63 && -68 <= rssi4 && rssi4 <= -75 && -80 < rssi8 && rssi8 < -92) {
-              // print("7 ters");
-
-              widget.x = 190;
-              widget.y = 105;
-              x = 190;
-              y = 105;
-
-            } else if (-63 < rssi3 && rssi3 < -70 && -57 <= rssi4 && rssi4 <= -65 && -63 < rssi8 && rssi8 < -70) {
-              //  print("9");
-
-              widget.x = 35;
-              widget.y = 190;
-              x = 35;
-              y = 190;
-
-            } else if (-55 < rssi3 && rssi3 < -60 && -55 <= rssi4 && rssi4 <= -60 && -55 < rssi8 && rssi8 < -60) {
-              // print("10");
-
-              widget.x = 105;
-              widget.y = 190;
-              x = 105;
-              y = 190;
-
-            } else if (-53 < rssi3 && rssi3 < -65 && -65 <= rssi4 && rssi4 <= -79 && -45 < rssi8 && rssi8 < -60) {
-              //print("11 ters");
-
-              widget.x = 190;
-              widget.y = 190;
-              x = 190;
-              y = 190;
-
-            } else if (-55 < rssi3 && rssi3 < -60 && -1 <= rssi4 && rssi4 <= -48 && -55 < rssi8 && rssi8 < -60) {
-              //print("13");
-
-              widget.x = 35;
-              widget.y = 260;
-              x = 35;
-              y = 260;
-
-            } else if (-59 < rssi3 && rssi3 < -67 && -49 <= rssi4 && rssi4 <= -58 && -49 < rssi8 && rssi8 < -58) {
-              //print("14");
-
-              widget.x = 105;
-              widget.y = 260;
-              x = 35;
-              y = 260;
-
-            } else if (-55 < rssi3 && rssi3 < -60 && -55 <= rssi4 && rssi4 <= -60 && -1 < rssi8 && rssi8 < -48) {
-              //print("15 ters");
-
-              widget.x = 190;
-              widget.y = 260;
-              x = 190;
-              y = 260;
-            }
-*/
-            /*if (0.22 <= d1 &&
-                d1 <= 1.18 &&
-                0.15 <= d2 &&
-                d2 <= 2.6 &&
-                2.0 <= d3 &&
-                d3 <= 2.82) {
-              // print("1");
-
-              widget.x = 35;
-              widget.y = 35;
-              x = 35;
-              y = 35;
-            } else if (0.0 <= d1 &&
-                d1 < 0.7 &&
-                1.58 < d2 &&
-                d2 < 2.23 &&
-                1.80 < d3 &&
-                d3 < 2.5) {
-              // print("2");
-
-              widget.x = 105;
-              widget.y = 35;
-              x = 105;
-              y = 35;
-            } else if (0.0 <= d1 &&
-                d1 < 0.7 &&
-                1.35 < d3 &&
-                d3 < 2.23 &&
-                1.55 < d2 &&
-                d2 < 2.53) {
-              //  print("3 ters");
-
-              widget.x = 190;
-              widget.y = 35;
-              x = 190;
-              y = 35;
-            } else if (0.22 <= d1 &&
-                d1 <= 1.18 &&
-                0.15 <= d3 &&
-                d3 <= 2.6 &&
-                2.12 <= d2 &&
-                d2 <= 2.82) {
-              // print("4 ters");
-
-              widget.x = 260;
-              widget.y = 35;
-              x = 260;
-              y = 35;
-            } else if (0.7 <= d1 &&
-                d1 <= 1.41 &&
-                1.0 <= d2 &&
-                d2 <= 1.58 &&
-                1.8 <= d3 &&
-                d3 <= 2.5) {
-              //print("5");
-
-              widget.x = 35;
-              widget.y = 105;
-              x = 35;
-              y = 105;
-            } else if (0.5 <= d1 &&
-                d1 <= 1.18 &&
-                1.18 <= d2 &&
-                d2 <= 1.8 &&
-                1.41 <= d3 &&
-                d3 <= 2.12) {
-              // print("6");
-
-              widget.x = 105;
-              widget.y = 105;
-              x = 105;
-              y = 105;
-            } else if (0.5 <= d1 &&
-                d1 <= 1.18 &&
-                1.18 <= d3 &&
-                d3 <= 1.8 &&
-                1.41 <= d2 &&
-                d2 <= 2.12) {
-              // print("7 ters");
-
-              widget.x = 190;
-              widget.y = 105;
-              x = 190;
-              y = 105;
-            } else if (0.7 <= d1 &&
-                d1 <= 1.41 &&
-                1.0 <= d3 &&
-                d3 <= 1.58 &&
-                1.8 <= d2 &&
-                d2 <= 2.5) {
-              // print("8 ters");
-
-              widget.x = 260;
-              widget.y = 105;
-              x = 260;
-              y = 105;
-            } else if (1.18 <= d1 &&
-                d1 <= 1.8 &&
-                0.5 <= d2 &&
-                d2 <= 1.18 &&
-                1.58 <= d3 &&
-                d3 <= 2.23) {
-              //  print("9");
-
-              widget.x = 35;
-              widget.y = 190;
-              x = 35;
-              y = 190;
-            } else if (1.0 <= d1 &&
-                d1 <= 1.58 &&
-                0.7 <= d2 &&
-                d2 <= 1.41 &&
-                1.18 <= d3 &&
-                d3 <= 1.8) {
-              // print("10");
-
-              widget.x = 105;
-              widget.y = 190;
-              x = 105;
-              y = 190;
-            } else if (1.0 <= d1 &&
-                d1 <= 1.58 &&
-                0.7 <= d3 &&
-                d3 <= 1.41 &&
-                1.18 <= d2 &&
-                d2 <= 1.8) {
-              //print("11 ters");
-
-              widget.x = 190;
-              widget.y = 190;
-              x = 190;
-              y = 190;
-            } else if (1.18 <= d1 &&
-                d1 <= 1.8 &&
-                0.5 <= d3 &&
-                d3 <= 1.18 &&
-                1.58 <= d2 &&
-                d2 <= 2.23) {
-              //print("12 ters");
-
-              widget.x = 260;
-              widget.y = 190;
-              x = 260;
-              y = 190;
-            } else if (1.58 <= d1 &&
-                d1 <= 2.23 &&
-                0.0 <= d2 &&
-                d2 <= 0.7 &&
-                1.5 <= d3 &&
-                d3 <= 2.61) {
-              //print("13");
-
-              widget.x = 35;
-              widget.y = 260;
-              x = 35;
-              y = 260;
-            } else if (1.5 <= d1 &&
-                d1 <= 2.61 &&
-                0.5 <= d2 &&
-                d2 <= 1.18 &&
-                1.0 <= d3 &&
-                d3 <= 1.58) {
-              //print("14");
-
-              widget.x = 105;
-              widget.y = 260;
-              x = 35;
-              y = 260;
-            } else if (1.5 <= d1 &&
-                d1 <= 2.61 &&
-                0.5 <= d3 &&
-                d3 <= 1.18 &&
-                1.0 <= d2 &&
-                d2 <= 1.58) {
-              //print("14 ters");
-
-              widget.x = 190;
-              widget.y = 260;
-              x = 190;
-              y = 260;
-            } else if (1.58 <= d1 &&
-                d1 <= 2.23 &&
-                0.0 <= d3 &&
-                d3 <= 0.7 &&
-                1.5 <= d2 &&
-                d2 <= 2.61) {
-              //print("13");
-
-              widget.x = 260;
-              widget.y = 260;
-
-              x = 260;
-              y = 260;
             }*/
 
-            //   5 kök5   1.18
-            //   kök5   0.22
-            //    kök 425    2.61
-            //    15kök2   2.12
-            //   5kök2  0.7
-            //   kök250   1.58
-            //    10kök5   2.23
-            //   15'2 20'2   2.5
-            //    10'2  15'2   1.80
-            //  10 kök2   1.41
 
             //Position? position = trilateration.calculatePosition(d1,d2,d3);
 
             //widget.x = position!.x;
             //widget.y = position.y;
 
-            /*
-               double a = (-2 * x1) + (2 * x2);
-               double b = (-2 * y1) + (2 * y2);
-               num c = pow(d1, 2) -
-                   pow(d2, 2) -
-                   pow(x1, 2) +
-                   pow(x2, 2) -
-                   pow(y1, 2) +
-                   pow(y2, 2);
-               double d = (-2 * x2) + (2 * x3);
-               double e = (-2 * y2) + (2 * y3);
-               num f = pow(d2, 2) -
-                   pow(d3, 2) -
-                   pow(x2, 2) +
-                   pow(x3, 2) -
-                   pow(y2, 2) +
-                   pow(y3, 2);
 
-               widget.x = (c * e - f * b);
-               widget.x = widget.x / (e * a - b * d);
-
-               widget.y = (c * d - a * f);
-               widget.y = widget.y / (b * d - a * e);
-
-                */
-
-            //x = widget.x;
-            //y = widget.y;
 
             /*Position measurement = Position(x, y);
                Position kalmanFilteredPosition = kalmanFilter.update(measurement);
@@ -791,10 +421,10 @@ class _TabScanningState extends State<TabScanning> {
                             '\nTxPower: ${beacon.txPower}\nAccuracy: ${beacon.accuracy}m\nRSSI: ${beacon.rssi}',
                             style: const TextStyle(fontSize: 14.0),
                           ),
-                          Text(
+                          /*Text(
                             '\nd1: ${d1}\nd2: ${d2}\nd3: ${d3}\n\nx: ${x}\ny: ${y}',
                             style: const TextStyle(fontSize: 14.0),
-                          ),
+                          ),*/
                         ],
                       ),
                     ),
