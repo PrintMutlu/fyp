@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
     final primary = Colors.blue;
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
         primarySwatch: primary,
